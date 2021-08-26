@@ -5,7 +5,12 @@ import { Picker } from '@react-native-picker/picker';
 export default function UnitsPicker({ unitSystem, setUnitSystem }) {
     return (
         <View style={styles.unitSystem}>
-            <Picker selectedValue={unitSystem} onValueChange={(item) => {setUnitSystem(item)}} mode="dropdown" itemStyle={{ fontSize: 12 }}>
+            <Picker 
+                selectedValue={unitSystem} 
+                onValueChange={(item) => {setUnitSystem(item)}} 
+                mode="dropdown" 
+                itemStyle={{ fontSize: 12 }}
+            >
                 <Picker.Item label="C°" value="metric" />
                 <Picker.Item label="F°" value="imperial" />
             </Picker>
