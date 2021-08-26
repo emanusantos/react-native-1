@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as Location from 'expo-location';
 import WeatherInfo from './components/WeatherInfo';
+import UnitsPicker from './components/UnitsPicker';
 
 const WEATHER_API_KEY = '2d845fbff1c48f4c2e9ec2319190ebad';
 const BASE_WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather?';
@@ -14,7 +15,7 @@ export default function App() {
   
   useEffect(() => {
     load()
-  }, [])
+  }, [unitSystem])
 
   const load = async () => {
     try {
@@ -49,6 +50,7 @@ export default function App() {
       <View style={styles.container}>
         <StatusBar style="auto" />
         <View style={styles.main}>
+          <UnitsPicker unitSystem={unitSystem} setUnitSystem={setUnitSystem} />
           <WeatherInfo currentWeather={currentWeather} />
         </View>
       </View>
