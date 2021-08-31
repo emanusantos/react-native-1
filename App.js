@@ -9,6 +9,7 @@ import UnitsPicker from './components/UnitsPicker';
 import ReloadIcon from './components/ReloadIcon';
 import SearchIcon from './components/SearchIcon';
 import WeatherDetails from './components/WeatherDetails';
+import Search from './screens/Search';
 import { colors } from './utils/index';
 
 const WEATHER_API_KEY = '2d845fbff1c48f4c2e9ec2319190ebad';
@@ -66,15 +67,6 @@ export default function App() {
     </View>
   );
 
-  const Search = () => (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <View style={styles.main}>
-        <Text>Hello Search</Text>
-      </View>
-    </View>
-  );
-
   const Stacks = createNativeStackNavigator();
   const StacksScreens = () => (
     <Stacks.Navigator initialRouteName="Home">
@@ -111,7 +103,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#EBEBEB',
+    backgroundColor: '#fff',
     justifyContent: 'center',
   },
   main: {
