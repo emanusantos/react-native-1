@@ -1,10 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as Location from 'expo-location';
 import WeatherInfo from './components/WeatherInfo';
 import UnitsPicker from './components/UnitsPicker';
 import ReloadIcon from './components/ReloadIcon';
+import SearchIcon from './components/SearchIcon';
 import WeatherDetails from './components/WeatherDetails';
 import { colors } from './utils/index';
 
@@ -50,17 +53,41 @@ export default function App() {
     }
   };
 
+  const Home = ({ navigation }) => (
+    <View style={styles.container}>
+      <StatusBar style="auto" />
+      <View style={styles.main}>
+        <UnitsPicker unitSystem={unitSystem} setUnitSystem={setUnitSystem} />
+        <SearchIcon navigation={navigation} />
+        <ReloadIcon load={load} />
+        <WeatherInfo currentWeather={currentWeather} />
+      </View>
+      <WeatherDetails currentWeather={currentWeather} unitSystem={unitSystem} />
+    </View>
+  );
+
+  const Search = () => (
+    <View style={styles.container}>
+      <StatusBar style="auto" />
+      <View style={styles.main}>
+        <Text>Hello Search</Text>
+      </View>
+    </View>
+  );
+
+  const Stacks = createNativeStackNavigator();
+  const StacksScreens = () => (
+    <Stacks.Navigator initialRouteName="Home">
+      <Stacks.Screen name="Home" component={Home} options={{ headerShown: false }} />
+      <Stacks.Screen name="Search" component={Search} />
+    </Stacks.Navigator>
+  );
+
   if (currentWeather) {
     return (
-      <View style={styles.container}>
-        <StatusBar style="auto" />
-        <View style={styles.main}>
-          <UnitsPicker unitSystem={unitSystem} setUnitSystem={setUnitSystem} />
-          <ReloadIcon load={load} />
-          <WeatherInfo currentWeather={currentWeather} />
-        </View>
-        <WeatherDetails currentWeather={currentWeather} unitSystem={unitSystem} />
-      </View>
+      <NavigationContainer>
+        <StacksScreens />
+      </NavigationContainer>
     );
   } else if (errorMessage) {
     return (
